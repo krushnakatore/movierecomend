@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        img{
+            margin-top: 20px;
+            height:150px;
+            width:10%;
+        }
+       
+    </style>
+</head>
+<body>
+    <input type= "text" id ="movie" placeholder="Enter Movie Name">
+    <button onclick = "getMovie()">Get Movie</button>
+
+    <div id ="data"></div>
+    <div id ="data1"></div>
+</body>
+</html>
+<script>
+
+    async function getMovie(){
+
+ let movie = document.getElementById("movie").value;  
+ let res = await fetch(`http://www.omdbapi.com/?t=${movie}&apikey=ea9653c8`);
+ //console.log(res);
+ //console.log(movie);
+
+ 
+ let data = await res.json();
+ 
+    console.log(data)
+   showMovie(data);
+
+    }
+
+    let container = document.getElementById("data");
+
+    let container1 = document.getElementById("data1");
+
+function showMovie(movie){
+    
+   // container.innerHtml = null;
+    let img = document.createElement("img");
+
+    img.src = movie.Poster;
+
+    let name = document.createElement("p");
+
+    name.innerText = movie.Title;
+   
+
+    let year = document.createElement("p");
+
+    year.innerText = movie.Year;
+
+    let releaseDate = document.createElement("p");
+
+    releaseDate.innerText = movie.Released;
+
+    let rate = document.createElement("p");
+
+    rate.innerText = movie.imdbRating;
+
+    let genre = document.createElement("p");
+
+    genre.innerText = movie.Genre;
+
+    let recomend = document.createElement("p");
+
+    recomend.textContent ="Recommended"
+
+    if(movie.imdbRating > 8.5){
+        container.append(img, name,releaseDate ,  rate , genre,recomend);
+            
+        }
+        else{
+            container.append(img, name,releaseDate ,  rate , genre);
+        }
+
+    
+
+    container1.append( );
+}
+
+ 
+</script>
